@@ -1,15 +1,29 @@
 package es.cice.progressbarrace;
 
+import android.content.res.TypedArray;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 
 public class MainActivity extends AppCompatActivity {
-
+    private ProgressBar[] pBars;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        TypedArray pBarArray=getResources().obtainTypedArray(R.array.progressBarIds);
+        pBars=new ProgressBar[pBarArray.length()];
+        for(int i=0;i<pBars.length;i++){
+            pBars[i]= (ProgressBar) findViewById(pBarArray.getResourceId(i,0));
+            pBars[i].setMax((int)getResources().getInteger(R.integer.pBarMax));
+        }
+
+    }
+
+    public void startRace(View v){
+
     }
 
     /**
@@ -20,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
      * del ProgressBar que ha terminado
      */
     public class ProgressBarRaceAsyncTask extends AsyncTask<Integer,Integer,Integer> {
-
+        private int pBarIndex;
         @Override
         protected Integer doInBackground(Integer... integers) {
             return null;
